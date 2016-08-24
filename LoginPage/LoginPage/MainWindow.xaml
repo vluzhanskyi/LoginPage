@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Left" Margin="369,260,0,0" VerticalAlignment="Top" Width="126" Height="35" FontSize="22"/>
-        <Button x:Name="SignInButton" Content="Sign In" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Width="126" Height="35" FontSize="22"/>
+        <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Left" Margin="369,260,0,0" VerticalAlignment="Top" Width="126" Height="35" FontSize="22" Click="LoginButton_Click"/>
+        <Button x:Name="SignInButton" Content="Sign In" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Width="126" Height="35" FontSize="22" Click="SignInButton_Click"/>
         <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="10,198,0,0" VerticalAlignment="Top" Width="485" Height="34" FontSize="22"/>
-        <TextBox x:Name="PasswordtextBox" HorizontalAlignment="Left" Height="34" Margin="10,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="485" TextChanged="textBox_TextChanged" FontSize="22"/>
+        <TextBox x:Name="UserTextBox" HorizontalAlignment="Left" Height="34" Margin="10,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="485" TextChanged="textBox_TextChanged" FontSize="22"/>
         <TextBlock x:Name="Password_" HorizontalAlignment="Left" Margin="14,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="22" Width="208" Height="25"><Run Text="Password:"/><LineBreak/><Run/></TextBlock>
         <TextBlock x:Name="Password__Copy" HorizontalAlignment="Left" Margin="14,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="22" Width="122" Height="25"><Run Text="User:"/><LineBreak/><Run/></TextBlock>
 

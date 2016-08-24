@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
+using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace LoginPage
 {
@@ -20,18 +11,44 @@ namespace LoginPage
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
-
-        private void UserTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
-        }
-
+        
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            DbLogic u = new DbLogic();
+            var result = u.ConectToDB("select * from dbo.Users");
+
+            if (result != null)
+                MessageBox.Show(result.Message);
+
+            //var users = u.Users;
+            string password = passwordBox.Password;
+            string user_Id = UserTextBox.Text;
+            if (u.CheckUserCredentionals(user_Id, password))
+                MessageBox.Show("UserExists!");
+            else
+                MessageBox.Show("User not found!");
+
+        }
+
+        private void SignInButton_Click(object sender, RoutedEventArgs e)
+        {
+            DbLogic u = new DbLogic();
+            var result = u.AddNewUserToDB(UserTextBox.Text, passwordBox.Password);
+
+            if (result != null)
+                MessageBox.Show(result.Message);
+            else
+                MessageBox.Show("User added successfully");
 
         }
     }
