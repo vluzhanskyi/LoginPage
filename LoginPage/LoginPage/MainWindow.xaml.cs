@@ -3,6 +3,8 @@ using System.Data;
 using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using MessageBox = System.Windows.MessageBox;
 
 namespace LoginPage
 {
@@ -24,32 +26,27 @@ namespace LoginPage
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            DbLogic u = new DbLogic();
-            var result = u.ConectToDB("select * from dbo.Users");
+            var u = new DbLogic();
+            Exception ex = null;
+          //  var result = u.ConectToDb(UserTextBox.Text, passwordBox.Password, out ex);
 
-            if (result != null)
-                MessageBox.Show(result.Message);
-
-            //var users = u.Users;
-            string password = passwordBox.Password;
-            string user_Id = UserTextBox.Text;
-            if (u.CheckUserCredentionals(user_Id, password))
-                MessageBox.Show("UserExists!");
+            if (u.ConectToDb(UserTextBox.Text, passwordBox.Password, out ex))
+                MessageBox.Show("User not found!" + ex.Message);
             else
-                MessageBox.Show("User not found!");
-
+            {
+                var result = MessageBox.Show("UserExists!", "To show the statistic?", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                    u.CollectUserStatistics(out ex);
+            }
+            
         }
 
         private void SignInButton_Click(object sender, RoutedEventArgs e)
         {
-            DbLogic u = new DbLogic();
-            var result = u.AddNewUserToDB(UserTextBox.Text, passwordBox.Password);
-
-            if (result != null)
-                MessageBox.Show(result.Message);
-            else
-                MessageBox.Show("User added successfully");
-
+            var u = new DbLogic();
+            Exception ex;
+            var result = u.AddNewUserToDb(UserTextBox.Text, passwordBox.Password, out ex);
+            MessageBox.Show(!result ? ex.Message : "User added successfully");
         }
     }
 }
