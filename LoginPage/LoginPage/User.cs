@@ -27,7 +27,14 @@ namespace LoginPage
 
     public class DbLogic
     {
+        private string ConnectionString { set; get; }
+
+        public DbLogic()
+        {
+            ConnectionString = CreateConnectionString("SQLSERVER", "Test1", "sa", "nicecti1!");
+        }
         private User _user;
+
         private string CreateConnectionString(string server, string initialCatalog, string userId, string password)
         {
             var connectionString = new SqlConnectionStringBuilder
@@ -43,9 +50,8 @@ namespace LoginPage
 
         public bool ConectToDb(string userName, string password, out Exception exception)
         {
-            var connectionString = CreateConnectionString("SQLSERVER", "Test1", "sa", "nicecti1!");
             exception = null;
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(ConnectionString))
             {
                 var command = new SqlCommand()
                 {
@@ -82,9 +88,8 @@ namespace LoginPage
         {
             var result = false;
             exception = null;
-            var connectionString = CreateConnectionString("SQLSERVER", "Test1", "sa", "nicecti1!");
             var query = string.Format("INSERT INTO dbo.Users VALUES ( '{userId}', '{password}')"); 
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(ConnectionString))
             {
                 try
                 {
@@ -105,10 +110,9 @@ namespace LoginPage
 
         public void CollectUserStatistics(out Exception exception)
         {
-            var connectionString = CreateConnectionString("SQLSERVER", "Test1", "sa", "nicecti1!");
              exception = null;
 
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(ConnectionString))
             {
                 var command = new SqlCommand()
                 {
