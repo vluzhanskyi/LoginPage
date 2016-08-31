@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LoginPage
 {
-    class DbCnnectedLayer : IConnect
+   public class DbConectedLayer : IConnect
     {
         public string ConnectionString { set; get; }
         public User User { set; get; }
 
-        DbCnnectedLayer()
+       public DbConectedLayer()
         {
             ConnectionString = CreateConnectionString("SQLSERVER", "Test1", "sa", "nicecti1!");
         }
