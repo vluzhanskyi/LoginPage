@@ -36,7 +36,7 @@ namespace LoginPage
                     Connection = connection,
                     CommandText =
                         string.Format(
-                            "SELECT * FROM dbo.Users WHERE UserName = {userName} AND UserPassword = {password} ")
+                            "SELECT * FROM dbo.Users WHERE UserName = '{0}' AND UserPassword = {1}", userName, password)
                 };
 
                 var result = false;
@@ -97,7 +97,7 @@ namespace LoginPage
                     Connection = connection,
                     CommandText =
                         string.Format(
-                            "SELECT * FROM dbo.UsersScores WHERE UserID = {user.UserId} ")
+                            "SELECT * FROM dbo.UsersStat WHERE UserID = {0}", User.UserId)
                 };
                 try
                 {

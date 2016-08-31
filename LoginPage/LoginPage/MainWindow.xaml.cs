@@ -30,15 +30,23 @@ namespace LoginPage
             Exception ex;
           //  var result = u.ConectToDb(UserTextBox.Text, passwordBox.Password, out ex);
 
-            if (u.ConectToDb(UserTextBox.Text, passwordBox.Password, out ex))
+            if (!u.ConectToDb(UserTextBox.Text, passwordBox.Password, out ex))
                 MessageBox.Show("User not found!" + ex.Message);
             else
             {
-                var result = MessageBox.Show("UserExists!", "To show the statistic?", MessageBoxButton.YesNo);
+                var result = MessageBox.Show("To show the statistic?", "UserExists!", MessageBoxButton.YesNo);
                 if (result != MessageBoxResult.Yes) return;
                 u.CollectUserStatistics(out ex);
                 if (ex != null)
                     MessageBox.Show("Fail to get Statistic \n" + ex.Message);
+                else
+                {
+                    UserStatistics stat = new UserStatistics();
+                    foreach(var s in u.User.GamesScores)
+                    {
+                        stat.textBox.Text.Insert(s.Value, s.Key);
+                    }
+                }
             }
             
         }
