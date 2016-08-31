@@ -26,8 +26,8 @@ namespace LoginPage
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            var u = new DbLogic();
-            Exception ex = null;
+            var u = new DbCnnectedLayer();
+            Exception ex;
           //  var result = u.ConectToDb(UserTextBox.Text, passwordBox.Password, out ex);
 
             if (u.ConectToDb(UserTextBox.Text, passwordBox.Password, out ex))
@@ -35,15 +35,17 @@ namespace LoginPage
             else
             {
                 var result = MessageBox.Show("UserExists!", "To show the statistic?", MessageBoxButton.YesNo);
-                if (result == MessageBoxResult.Yes)
-                    u.CollectUserStatistics(out ex);
+                if (result != MessageBoxResult.Yes) return;
+                u.CollectUserStatistics(out ex);
+                if (ex != null)
+                    MessageBox.Show("Fail to get Statistic \n" + ex.Message);
             }
             
         }
 
         private void SignInButton_Click(object sender, RoutedEventArgs e)
         {
-            var u = new DbLogic();
+            var u = new DbCnnectedLayer();
             Exception ex;
             var result = u.AddNewUserToDb(UserTextBox.Text, passwordBox.Password, out ex);
             MessageBox.Show(!result ? ex.Message : "User added successfully");

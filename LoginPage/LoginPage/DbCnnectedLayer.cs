@@ -17,7 +17,6 @@ namespace LoginPage
             ConnectionString = CreateConnectionString("SQLSERVER", "Test1", "sa", "nicecti1!");
         }
 
-
         public string CreateConnectionString(string server, string initialCatalog, string userId, string password)
         {
             var connectionString = new SqlConnectionStringBuilder
@@ -89,7 +88,6 @@ namespace LoginPage
                 return result;
             }
         }
-
 
         public void CollectUserStatistics(out Exception exception)
         {
