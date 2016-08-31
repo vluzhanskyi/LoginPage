@@ -26,7 +26,7 @@ namespace LoginPage
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            var u = new DbCnnectedLayer();
+            var u = new DbConectedLayer();
             Exception ex;
           //  var result = u.ConectToDb(UserTextBox.Text, passwordBox.Password, out ex);
 
@@ -45,7 +45,7 @@ namespace LoginPage
 
         private void SignInButton_Click(object sender, RoutedEventArgs e)
         {
-            var u = new DbCnnectedLayer();
+            var u = new DbConectedLayer();
             Exception ex;
             var result = u.AddNewUserToDb(UserTextBox.Text, passwordBox.Password, out ex);
             MessageBox.Show(!result ? ex.Message : "User added successfully");
