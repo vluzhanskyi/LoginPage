@@ -9,7 +9,7 @@ namespace LoginPage
         public int UserId { set; get; }
         public string UserName { set; get; }
         public string Password { set; get; }
-        public Dictionary<string, int> GamesScores { set; get; }
+        public Dictionary<string, int> GamesScores = new Dictionary<string, int>();
 
         public User(int id, string name, string password)
         {

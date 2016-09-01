@@ -21,15 +21,14 @@ namespace LoginPage
         
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             var u = new DbConectedLayer();
             Exception ex;
-          //  var result = u.ConectToDb(UserTextBox.Text, passwordBox.Password, out ex);
-
+          
             if (!u.ConectToDb(UserTextBox.Text, passwordBox.Password, out ex))
                 MessageBox.Show("User not found!" + ex.Message);
             else
@@ -44,8 +43,10 @@ namespace LoginPage
                     UserStatistics stat = new UserStatistics();
                     foreach(var s in u.User.GamesScores)
                     {
-                        stat.textBox.Text.Insert(s.Value, s.Key);
+                        stat.textBox.AppendText(string.Format("{0}     -    {1}", s.Key, s.Value));
+                        stat.textBox.AppendText(Environment.NewLine);   
                     }
+                    stat.Show();
                 }
             }
             

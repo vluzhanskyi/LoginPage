@@ -10,7 +10,7 @@ namespace LoginPage
 
        public DbConectedLayer()
         {
-            ConnectionString = CreateConnectionString("SQLSERVER", "Test1", "sa", "nicecti1!");
+            ConnectionString = CreateConnectionString("SQLSERVER\\SQLEXPRESS", "Test1", "sa", "nicecti1!");
         }
 
         public string CreateConnectionString(string server, string initialCatalog, string userId, string password)
@@ -36,7 +36,7 @@ namespace LoginPage
                     Connection = connection,
                     CommandText =
                         string.Format(
-                            "SELECT * FROM dbo.Users WHERE UserName = '{0}' AND UserPassword = {1}", userName, password)
+                            "SELECT * FROM dbo.Users WHERE UserName = '{0}' AND UserPassword = '{1}'", userName, password)
                 };
 
                 var result = false;
@@ -66,7 +66,7 @@ namespace LoginPage
         {
             var result = false;
             exception = null;
-            var query = string.Format("INSERT INTO dbo.Users VALUES ( '{userId}', '{password}')");
+            var query = string.Format("INSERT INTO dbo.Users VALUES ( '{0}', '{1}')", userId, password);
             using (var connection = new SqlConnection(ConnectionString))
             {
                 try
@@ -106,7 +106,9 @@ namespace LoginPage
 
                     while (myReader.Read())
                     {
-                        User.GamesScores.Add(myReader.GetString(1).Trim(), myReader.GetInt32(3));
+                        var GameName = myReader.GetString(1).Trim();
+                        var res = myReader.GetInt32(3);
+                        User.GamesScores.Add(GameName, res);
 
                     }
                     command.Connection.Close();
