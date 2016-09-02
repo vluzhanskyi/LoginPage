@@ -9,9 +9,7 @@ namespace LoginPage
     interface IConnect
     {
         User User { set; get; }
-
         string ConnectionString { set; get; }
 
-        string CreateConnectionString(string server, string initialCatalog, string userId, string password);
     }
 }

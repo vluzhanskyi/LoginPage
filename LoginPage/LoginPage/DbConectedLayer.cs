@@ -8,12 +8,7 @@ namespace LoginPage
         public string ConnectionString { set; get; }
         public User User { set; get; }
 
-       public DbConectedLayer()
-        {
-            ConnectionString = CreateConnectionString("SQLSERVER\\SQLEXPRESS", "Test1", "sa", "nicecti1!");
-        }
-
-        public string CreateConnectionString(string server, string initialCatalog, string userId, string password)
+       public DbConectedLayer(string server, string initialCatalog, string userId, string password)
         {
             var connectionString = new SqlConnectionStringBuilder
             {
@@ -23,7 +18,7 @@ namespace LoginPage
                 DataSource = server
             };
 
-            return connectionString.ConnectionString;
+            ConnectionString = connectionString.ConnectionString;
         }
 
         public bool ConectToDb(string userName, string password, out Exception exception)

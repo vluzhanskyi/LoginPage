@@ -13,10 +13,12 @@ namespace LoginPage
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        DbConectedLayer con = new DbConectedLayer("SQLSERVER\\SQLEXPRESS", "Test1", "sa", "nicecti1!");
+        DbDisconnectedLayer disCon = new DbDisconnectedLayer("SQLSERVER\\SQLEXPRESS", "Test1", "sa", "nicecti1!");
         public MainWindow()
         {
-            InitializeComponent();           
+            InitializeComponent();  
+                     
         }
         
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -26,37 +28,40 @@ namespace LoginPage
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            var u = new DbConectedLayer();
+            //var con = new DbConectedLayer("SQLSERVER\\SQLEXPRESS", "Test1", "sa", "nicecti1!");
+           
+
             Exception ex;
-          
-            if (!u.ConectToDb(UserTextBox.Text, passwordBox.Password, out ex))
-                MessageBox.Show("User not found!" + ex.Message);
-            else
-            {
-                var result = MessageBox.Show("To show the statistic?", "UserExists!", MessageBoxButton.YesNo);
-                if (result != MessageBoxResult.Yes) return;
-                u.CollectUserStatistics(out ex);
-                if (ex != null)
-                    MessageBox.Show("Fail to get Statistic \n" + ex.Message);
-                else
-                {
-                    UserStatistics stat = new UserStatistics();
-                    foreach(var s in u.User.GamesScores)
-                    {
-                        stat.textBox.AppendText(string.Format("{0}     -    {1}", s.Key, s.Value));
-                        stat.textBox.AppendText(Environment.NewLine);   
-                    }
-                    stat.Show();
-                }
-            }
-            
+
+            disCon.GetDataFromDb();
+
+            //if (!con.ConectToDb(UserTextBox.Text, passwordBox.Password, out ex))
+            //    MessageBox.Show("User not found!" + ex.Message);
+            //else
+            //{
+            //    var result = MessageBox.Show("To show the statistic?", "UserExists!", MessageBoxButton.YesNo);
+            //    if (result != MessageBoxResult.Yes) return;
+            //    con.CollectUserStatistics(out ex);
+            //    if (ex != null)
+            //        MessageBox.Show("Fail to get Statistic \n" + ex.Message);
+            //    else
+            //    {
+            //        UserStatistics stat = new UserStatistics();
+            //        foreach (var s in con.User.GamesScores)
+            //        {
+            //            stat.textBox.AppendText(string.Format("{0}     -    {1}", s.Key, s.Value));
+            //            stat.textBox.AppendText(Environment.NewLine);
+            //        }
+            //        stat.Show();
+            //    }
+            //}
+
         }
 
         private void SignInButton_Click(object sender, RoutedEventArgs e)
-        {
-            var u = new DbConectedLayer();
+        {           
             Exception ex;
-            var result = u.AddNewUserToDb(UserTextBox.Text, passwordBox.Password, out ex);
+            var result = con.AddNewUserToDb(UserTextBox.Text, passwordBox.Password, out ex);
             MessageBox.Show(!result ? ex.Message : "User added successfully");
         }
     }
