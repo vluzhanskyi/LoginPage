@@ -29,10 +29,20 @@ namespace LoginPage
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             //var con = new DbConectedLayer("SQLSERVER\\SQLEXPRESS", "Test1", "sa", "nicecti1!");
-           
 
+            User u = new User(0, UserTextBox.Text, passwordBox.Password);
             Exception ex;
             DataSet ds = disCon.GetDataFromDb();
+            if (disCon.GetUserStat(u, ds))
+            {
+                UserStatistics stat = new UserStatistics();
+                foreach (var s in con.User.GamesScores)
+                {
+                    stat.textBox.AppendText(string.Format("{0}     -    {1}", s.Key, s.Value));
+                    stat.textBox.AppendText(Environment.NewLine);
+                }
+                stat.Show();
+            }
 
             //if (!con.ConectToDb(UserTextBox.Text, passwordBox.Password, out ex))
             //    MessageBox.Show("User not found!" + ex.Message);
