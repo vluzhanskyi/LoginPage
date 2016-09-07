@@ -32,8 +32,7 @@ namespace LoginPage
            
 
             Exception ex;
-
-            disCon.GetDataFromDb();
+            DataSet ds = disCon.GetDataFromDb();
 
             //if (!con.ConectToDb(UserTextBox.Text, passwordBox.Password, out ex))
             //    MessageBox.Show("User not found!" + ex.Message);
